@@ -1,9 +1,2 @@
-*.o
-*.obj
-/build/**/tmp/
-/build/**/bin/
-/build/msvc/**/x86/
-/build/msvc/**/x64/
-/build/msvc/**/.vs/
-/release/**
-/debug/**
+**zig-cache
+**zig-out

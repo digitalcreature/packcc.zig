@@ -6,9 +6,14 @@
 
 extern const char *g_cmdname; /* replaced later with actual one */
 
+
 void print_version(FILE *output) {
     fprintf(output, "%s version %s\n", g_cmdname, VERSION);
     fprintf(output, "Copyright (c) 2014, 2019-2021 Arihiro Yoshida. All rights reserved.\n");
+}
+
+void c_print_version() {
+    print_version(stderr);
 }
 
 void print_usage(FILE *output) {
@@ -22,7 +27,7 @@ void print_usage(FILE *output) {
     fprintf(output, "  -v, --version  print the version and exit\n");
 }
 
-int main(int argc, char **argv) {
+int c_main(int argc, char **argv) {
     const char *iname = NULL;
     const char *oname = NULL;
     bool_t ascii = FALSE;
