@@ -1,8 +1,8 @@
 const std = @import("std");
+const c = @import("c.zig");
 
-// extern fn c_main(argc: c_int, argv: ?[*]?[*]u8) c_int;
-extern fn c_print_version() void;
+const Context = c.context_t;
 
 pub fn main() void {
-    c_print_version();
+    std.log.info("{d}", .{@sizeOf(Context)});
 }

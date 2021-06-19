@@ -131,24 +131,17 @@ struct node_tag {
     node_data_t data;
 };
 
+node_t *create_node(node_type_t type);
+void destroy_node(node_t *node);
+
 void node_array__init(node_array_t *array, size_t max);
-
 void node_array__add(node_array_t *array, node_t *node);
-
 void node_array__term(node_array_t *array);
 
 void node_const_array__init(node_const_array_t *array, size_t max);
-
 void node_const_array__add(node_const_array_t *array, const node_t *node);
-
 void node_const_array__clear(node_const_array_t *array);
-
 void node_const_array__copy(node_const_array_t *array, const node_const_array_t *src);
-
 void node_const_array__term(node_const_array_t *array);
-
-node_t *create_node(node_type_t type);
-
-void destroy_node(node_t *node);
 
 #endif
