@@ -43,7 +43,7 @@ size_t strnlen_(const char *str, size_t maxlen) {
 #undef TRUE  /* to avoid macro definition conflicts with the system header file of IBM AIX */
 #undef FALSE
 
-#define VERSION "1.5.0"
+#define VERSION "1.5.0 Z"
 
 #ifndef BUFFER_INIT_SIZE
 #define BUFFER_INIT_SIZE 256

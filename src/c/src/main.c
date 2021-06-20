@@ -27,7 +27,26 @@ void print_usage(FILE *output) {
     fprintf(output, "  -v, --version  print the version and exit\n");
 }
 
-int c_main(int argc, char **argv) {
+char* trim_path(char* path) {
+    if (path == NULL) {
+        return NULL;
+    }
+    while (*path != 0) {
+        if (*path != ' ') {
+            break;
+        }
+        path ++;
+    }
+    if (*path == 0) {
+        return NULL;
+    }
+    else {
+        return path;
+    }
+
+}
+
+int main(int argc, char **argv) {
     const char *iname = NULL;
     const char *oname = NULL;
     bool_t ascii = FALSE;
@@ -110,6 +129,8 @@ int c_main(int argc, char **argv) {
         }
         iname = (fname != NULL && fname[0] != '\0') ? fname : NULL;
         oname = (opt_o != NULL && opt_o[0] != '\0') ? opt_o : NULL;
+        iname = trim_path(iname);
+        oname = trim_path(oname);
         ascii = opt_a;
         debug = opt_d;
     }

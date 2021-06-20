@@ -13,10 +13,10 @@ pub fn build(b: *Builder) !void {
     // between Debug, ReleaseSafe, ReleaseFast, and ReleaseSmall.
     const mode = b.standardReleaseOptions();
 
-    const exe = b.addExecutable("packzz", "src/main.zig");
-    
-    exe.setTarget(target);
-    exe.setBuildMode(mode);
+    const packcc_exe = b.addExecutable("packcc", null);
+
+    packcc_exe.setTarget(target);
+    packcc_exe.setBuildMode(mode);
     
     const c_flags = &[_][]const u8{"-std=gnu89"};
 
@@ -24,7 +24,7 @@ pub fn build(b: *Builder) !void {
     const c_src_dir = c_dir ++ "/src";
     const c_inc_dir = c_dir ++ "/inc";
 
-    exe.addIncludeDir(c_inc_dir);
+    packcc_exe.addIncludeDir(c_inc_dir);
 
     const Dir = fs.Dir;
     var dir = try fs.cwd().openDir(c_src_dir, Dir.OpenDirOptions{ .iterate = true });
@@ -33,15 +33,15 @@ pub fn build(b: *Builder) !void {
     while (try iterator.next()) |entry| {
         if (std.mem.endsWith(u8, entry.name, ".c")) {
             const full_path = try std.fmt.allocPrint(b.allocator, "{s}/{s}", .{c_src_dir, entry.name});
-            exe.addCSourceFile(full_path, c_flags);
+            packcc_exe.addCSourceFile(full_path, c_flags);
         }
     }
 
-    exe.linkLibC();
-    exe.install();
+    packcc_exe.linkLibC();
+    packcc_exe.install();
 
 
-    const run_cmd = exe.run();
+    const run_cmd = packcc_exe.run();
     run_cmd.step.dependOn(b.getInstallStep());
     if (b.args) |args| {
         run_cmd.addArgs(args);
